@@ -8,7 +8,7 @@ const voteSchema = new mongoose.Schema({
     },
     category: {
         type: mongoose.Schema.ObjectId,
-        ref: 'Category',
+        ref: 'category',
     },
     to: {
         type: mongoose.Schema.ObjectId,
@@ -18,5 +18,5 @@ const voteSchema = new mongoose.Schema({
 });
 
 
-const voteModel = mongoose.model("Vote", voteSchema);
+const voteModel = mongoose.model("vote", voteSchema);
 export default voteModel;
