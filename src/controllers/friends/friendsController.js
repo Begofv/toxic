@@ -11,19 +11,20 @@ const getAll = async()=> {
 }
 const getById = async(id) =>{
     try {
-        const friends = await friendsModel.findById(id);
-        return friends;
+        const friend = await friendsModel.findById(id);
+        return friend;
     } catch (error) {
         console.error(error);
-        return null;
-        
+        return null;     
     }
 }
 
 const create = async(data) =>{
     try {
-        const friends = await friendsModel.create(data);
-        return friends;
+        const friend = await friendsModel.create(data);
+        friend.users.push(data.owner);
+        await friend.save();
+        return friend;
     } catch (error) {
         console.error(error); 
         return null;  
@@ -32,8 +33,9 @@ const create = async(data) =>{
 
 const update = async(id,data) =>{
     try {
-        const friends = await friendsModel.findByIdAndUpdate(id,data);
-        return friends;
+        await friendsModel.findByIdAndUpdate(id,data);
+        const friend = await friendsModel.findById(id);
+        return friend;
     } catch (error) {
         console.error(error);
         return null;
@@ -42,47 +44,77 @@ const update = async(id,data) =>{
 
 const remove = async(id) =>{
     try {
-        const friends = await friendsModel.findByIdAndDelete(id);
-        return friends;
+        const friend = await friendsModel.findByIdAndDelete(id);
+        const result = await taskController.removeForfriend(id);
+        return friend;
     } catch (error) {
         console.error(error);
         return null;
     }
 }
-const addUser = async(friendsId,userId) =>{
-    try {
-        const friends = await getById(friendsId);
-        if(!friends.users.includes(userId)){
-            friends.users.push(userId);
-            await friends.save();
-            return friends
-        }
-        return friends;
-    } catch (error) {
-        return null;
-    }
-}
-const removeUser = async(friendsId,userId)=>{
-    try {
-        const friends = await getById(friendsId);
-        if(friends.users.includes(userId)){
-            friends.users = friends.users.filter(u=> u!==userId);
-            await friends.save();
-            return friends
-        }
-        return friends;
-    } catch (error) {
-        return null;
-    }
-}
+// const addUser = async(friendId,userId) =>{
+//     try {
+//         const friend = await getById(friendId);
+//         if(!friend.users.includes(userId)){
+//             friend.users.push(userId);
+//             await friend.save();
+//             return friend
+//         }
+//         return friend;
+//     } catch (error) {
+//         return null;
+//     }
+// }
+// const removeUser = async(friendId,userId)=>{
+//     try {
+//         console.log("removeUser",friendId,userId)
+//         const friend = await getById(friendId);
+//         if(friend.users.includes(userId)){
+//             friend.users = friend.users.filter(u=> !u.equals(userId));
+//             await friend.save();
+//             return friend
+//         }
+//         return friend;
+//     } catch (error) {
+//         return null;
+//     }
+// }
+// const addTask = async(friendId,taskId) =>{
+//     try {
+//         const friend = await getById(friendId);
+//         if(!friend.tasks.includes(taskId)){
+//             friend.tasks.push(taskId);
+//             await friend.save();
+//             return friend
+//         }
+//         return friend;
+//     } catch (error) {
+//         return null;
+//     }
+// }
+// const removeTask = async(friendId,taskId)=>{
+//     try {
+//         const friend = await getById(friendId);
+//         if(friend.tasks.includes(taskId)){
+//             friend.tasks = friend.tasks.filter(u=> u!==taskId);
+//             await friend.save();
+//             return friend
+//         }
+//         return friend;
+//     } catch (error) {
+//         return null;
+//     }
+// }
 export const functions = {
     getAll,
     getById,
     create,
     update,
     remove,
-    addUser,
-    removeUser,
+    // addUser,
+    // removeUser,
+    // addTask,
+    // removeTask
 }
 
 export default functions;

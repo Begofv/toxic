@@ -12,7 +12,10 @@ const userData = {
 describe("Test de userController",()=>{
     beforeAll(async ()=>{
         await connectDB();
-        await mongoose.connection.collections["users"].drop();
+        try{
+            await mongoose.connection.collections["users"].drop();
+        }catch(error){ 
+        }
     })
     afterAll(async()=>{
         await mongoose.connection.close();

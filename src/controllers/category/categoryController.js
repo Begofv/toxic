@@ -2,8 +2,8 @@ import categoryModel from "../../models/categoryModel.js";
 
 const getAll = async()=> {
     try {
-        const category = await categoryModel.find();
-        return category;
+        const categorys = await categoryModel.find();
+        return categorys;
     } catch (error) {
         console.error(error);
         return [];
@@ -19,7 +19,6 @@ const getById = async(id) =>{
         
     }
 }
-
 const create = async(data) =>{
     try {
         const category = await categoryModel.create(data);
@@ -30,15 +29,18 @@ const create = async(data) =>{
     }
 }
 
-const update = async(id,data) =>{
-    try {
-        const category = await categoryModel.findByIdAndUpdate(id,data);
-        return category;
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
-}
+//las categorias no se pueden editar, solo crear y borrar por el admin
+// const update = async(id,data) =>{
+//     try {
+//         const oldcategory = await categoryModel.findByIdAndUpdate(id,data);
+//         const category = await categoryModel.findById(id);
+//         console.log("usurio",category);
+//         return user;
+//     } catch (error) {
+//         console.error(error);
+//         return null;
+//     }
+// }
 
 const remove = async(id) =>{
     try {
@@ -49,40 +51,12 @@ const remove = async(id) =>{
         return null;
     }
 }
-const addUser = async(categoryId,userId) =>{
-    try {
-        const category = await getById(categoryId);
-        if(!category.users.includes(userId)){
-            category.users.push(userId);
-            await category.save();
-            return category
-        }
-        return category;
-    } catch (error) {
-        return null;
-    }
-}
-const removeUser = async(categoryId,userId)=>{
-    try {
-        const category = await getById(categoryId);
-        if(category.users.includes(userId)){
-            category.users = category.users.filter(u=> u!==userId);
-            await category.save();
-            return category
-        }
-        return category;
-    } catch (error) {
-        return null;
-    }
-}
+
 export const functions = {
     getAll,
     getById,
     create,
-    update,
-    remove,
-    addUser,
-    removeUser,
+    remove
 }
 
 export default functions;
