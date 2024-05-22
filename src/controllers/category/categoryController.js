@@ -1,4 +1,6 @@
 import categoryModel from "../../models/categoryModel.js";
+import userModel from "../../models/userModel.js";
+import userController from "../user/userController.js";
 
 const getAll = async()=> {
     try {
@@ -19,28 +21,21 @@ const getById = async(id) =>{
         
     }
 }
+
+//las categorias no se pueden editar, solo crear y borrar por el admin
+
 const create = async(data) =>{
-    try {
-        const category = await categoryModel.create(data);
-        return category;
-    } catch (error) {
-        console.error(error); 
+   try {
+       const category = await categoryModel.create(data);
+       category.users.push(data.owner);
+       await category.save();
+       await userController.addCategory(data.owner,category._id);
+       return category;
+   } catch (error) {
+       console.error(error); 
         return null;  
     }
 }
-
-//las categorias no se pueden editar, solo crear y borrar por el admin
-// const update = async(id,data) =>{
-//     try {
-//         const oldcategory = await categoryModel.findByIdAndUpdate(id,data);
-//         const category = await categoryModel.findById(id);
-//         console.log("usuario",category);
-//         return user;
-//     } catch (error) {
-//         console.error(error);
-//         return null;
-//     }
-// }
 
 const remove = async(id) =>{
     try {

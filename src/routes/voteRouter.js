@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import voteApiController from "../controllers/vote/voteController.js";
+import voteApiController from "../controllers/vote/voteApiController.js";
 
 
 const router = Router();

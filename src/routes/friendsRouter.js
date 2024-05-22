@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import friendsApiController from "../controllers/friends/friendsController.js";
+import friendsApiController from "../controllers/friends/friendsApiController.js";
 
 
 const router = Router();
