@@ -34,7 +34,7 @@ const create = async(data) =>{
 //     try {
 //         const oldcategory = await categoryModel.findByIdAndUpdate(id,data);
 //         const category = await categoryModel.findById(id);
-//         console.log("usurio",category);
+//         console.log("usuario",category);
 //         return user;
 //     } catch (error) {
 //         console.error(error);

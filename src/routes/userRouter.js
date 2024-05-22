@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import userApiController from "../controllers/user/userController.js";
+import userApiController from "../controllers/user/userApiController.js";
 
 
 const router = Router();
