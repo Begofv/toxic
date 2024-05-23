@@ -22,8 +22,6 @@ const getById = async(id) =>{
 const create = async(data) =>{
     try {
         const friend = await friendsModel.create(data);
-        friend.users.push(data.owner);
-        await friend.save();
         return friend;
     } catch (error) {
         console.error(error); 
@@ -31,21 +29,20 @@ const create = async(data) =>{
     }
 }
 
-const update = async(id,data) =>{
-    try {
-        await friendsModel.findByIdAndUpdate(id,data);
-        const friend = await friendsModel.findById(id);
-        return friend;
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
-}
+// const update = async(id,data) =>{
+//     try {
+//         await friendsModel.findByIdAndUpdate(id,data);
+//         const friend = await friendsModel.findById(id);
+//         return friend;
+//     } catch (error) {
+//         console.error(error);
+//         return null;
+//     }
+// }
 
 const remove = async(id) =>{
     try {
         const friend = await friendsModel.findByIdAndDelete(id);
-        const result = await taskController.removeForfriend(id);
         return friend;
     } catch (error) {
         console.error(error);
@@ -109,7 +106,7 @@ export const functions = {
     getAll,
     getById,
     create,
-    update,
+    // update,
     remove,
     // addUser,
     // removeUser,

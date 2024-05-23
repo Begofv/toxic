@@ -1,5 +1,4 @@
 import categoryModel from "../../models/categoryModel.js";
-import userModel from "../../models/userModel.js";
 import userController from "../user/userController.js";
 
 const getAll = async()=> {
@@ -27,9 +26,6 @@ const getById = async(id) =>{
 const create = async(data) =>{
    try {
        const category = await categoryModel.create(data);
-       category.users.push(data.owner);
-       await category.save();
-       await userController.addCategory(data.owner,category._id);
        return category;
    } catch (error) {
        console.error(error); 
