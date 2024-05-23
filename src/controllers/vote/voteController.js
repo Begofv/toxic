@@ -2,7 +2,7 @@ import voteModel from "../../models/voteModel.js";
 
 const getAll = async()=> {
     try {
-        const votes = await userModel.find();
+        const votes = await voteModel.find();
         return votes;
     } catch (error) {
         console.error(error);
@@ -50,12 +50,24 @@ const remove = async(id) =>{
     }
 }
 
+const getByGroup = async(property,value) =>{
+    try {
+        console.log("property",property)
+        console.log("value",value)
+        const vote = await voteModel.find({[property]:value})
+        return vote;
+    } catch (error) {
+        return null;
+    }
+}
+
 export const functions = {
     getAll,
     getById,
     create,
     update,
-    remove
+    remove,
+    getByGroup
 }
 
 export default functions;

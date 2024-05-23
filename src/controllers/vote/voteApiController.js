@@ -12,7 +12,9 @@ const getById = async (req,res) =>{
 }
 
 const create= async(req,res)=>{
-    const vote = await voteController.create(req.body);
+    const userId = req.user._id;
+    const data = {...req.body,from:userId}
+    const vote = await voteController.create(data);
     res.json({data:vote});
 }
 
@@ -28,10 +30,17 @@ const remove= async(req,res)=>{
     res.json({data:vote});
 } 
 
+const getByGroup=async(req,res)=>{
+    const {group}=req.params;
+    const votes = await voteController.getByGroup("group",group);
+    res.json({data:votes})
+}
+
 export default {
     getAll,
     create,
     update,
     remove,
     getById,
+    getByGroup
 }

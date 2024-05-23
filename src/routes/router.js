@@ -15,7 +15,7 @@ router.get("/",(req,res)=>{
 })
 
 router.use("/users",userRouter);
-router.use("/votes",voteRouter);
+router.use("/votes",isAuthenticated,voteRouter);
 router.use("/categories",categoryRouter);
 router.use("/groups",isAuthenticated,groupRouter);
 router.use("/",authRouter);
