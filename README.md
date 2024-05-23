@@ -39,15 +39,15 @@ El objetivo de este proyecto es crear una API para que un grupo de amigos pueda 
 
 3. Crear en raiz .env 
 
-    APP_PORT=3015
-    APP_HOST=toxic
+   - APP_PORT=3015
+   - APP_HOST=toxic
 
-    DB_HOST= mongo_toxic
-    DB_PORT= 27020
-    DB_USER= tu_usuario
-    DB_PASSWORD=tu_contraseña
-    DB_NAME= toxic
-    JWT_SECRET= secretos
+   - DB_HOST= mongo_toxic
+   - DB_PORT= 27020
+   - DB_USER= tu_usuario
+   - DB_PASSWORD=tu_contraseña
+   - DB_NAME= toxic
+   - JWT_SECRET= secretos
 
 
 
@@ -55,8 +55,7 @@ El objetivo de este proyecto es crear una API para que un grupo de amigos pueda 
     - npm start
     - docker-compose up --build
 
-
-    Uso
+   - Uso
     Navegador Web:
     Abre tu navegador web y ve a http://localhost:3015 para interactuar con la aplicación.
 
