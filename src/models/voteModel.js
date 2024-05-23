@@ -15,6 +15,10 @@ const voteSchema = new mongoose.Schema({
         ref: 'users',
         unique: true
     },
+    friendsGroup: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'friends',
+    },
 });
 
 

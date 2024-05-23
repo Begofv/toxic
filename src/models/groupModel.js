@@ -1,16 +1,16 @@
 import mongoose from "mongoose";
 
-const friendsSchema = new mongoose.Schema({
+const groupSchema = new mongoose.Schema({
     name:{
         type: String,
         required:true
     },
-    friends: {
+    friends: [{
         type: [mongoose.Schema.ObjectId],
         ref: "user"
-    }
+    }]
 });
 
-const friendsModel = mongoose.model("friends",friendsSchema);
+const groupModel = mongoose.model("group",groupSchema);
 
-export default friendsModel;
+export default groupModel;

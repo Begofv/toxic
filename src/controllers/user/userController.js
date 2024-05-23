@@ -57,10 +57,8 @@ const login = async(data) =>{
             return {error:"El usuario o la contraseña son erroneos",status:400};
         }
         console.log("login user",user)
-        const token = jwt.sign({_id:user._id,username:user.username,role:user.role},process.env.JWT_SECRET,{expiresIn: 60 * 60})
-        return {token};
-
-        
+        const token = jwt.sign({_id:user._id,username:user.username,role:user.role},process.env.JWT_SECRET,{expiresIn: 60 * 60* 24})
+        return {token};       
     } catch (error) {
         console.error(error);
         return {error:"Ha habido un error",status:500};
