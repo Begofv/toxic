@@ -1,0 +1,409 @@
+Con base en los esquemas Mongoose y el router proporcionados, actualizaremos el archivo `swagger.yaml` para incluir los modelos adicionales (Vote, Category y Group) y las rutas correspondientes.
+
+Aquí tienes una versión actualizada del archivo `swagger.yaml` que incluye estos modelos y rutas:
+
+```yaml
+openapi: 3.0.0
+info:
+  title: API Documentation
+  description: API for managing users, votes, categories, and groups
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local server
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: User ID
+        email:
+          type: string
+          description: User email
+        username:
+          type: string
+          description: User username
+        password:
+          type: string
+          description: User password
+        role:
+          type: string
+          enum:
+            - user
+            - admin
+          description: User role
+          default: user
+        vote:
+          type: array
+          items:
+            type: string
+            description: Reference to vote IDs
+      required:
+        - email
+        - username
+        - password
+    NewUser:
+      type: object
+      properties:
+        email:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - username
+        - password
+    UpdateUser:
+      type: object
+      properties:
+        email:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+          enum:
+            - user
+            - admin
+        vote:
+          type: array
+          items:
+            type: string
+    Vote:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Vote ID
+        from:
+          type: string
+          description: User ID who voted
+        category:
+          type: string
+          description: Category ID
+        to:
+          type: string
+          description: User ID who received the vote
+        group:
+          type: string
+          description: Group ID
+    NewVote:
+      type: object
+      properties:
+        from:
+          type: string
+        category:
+          type: string
+        to:
+          type: string
+        group:
+          type: string
+      required:
+        - from
+        - category
+        - to
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Category ID
+        name:
+          type: string
+          description: Category name
+        description:
+          type: string
+          description: Category description
+      required:
+        - name
+    NewCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - name
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Group ID
+        name:
+          type: string
+          description: Group name
+        friends:
+          type: array
+          items:
+            type: string
+            description: User IDs
+      required:
+        - name
+    NewGroup:
+      type: object
+      properties:
+        name:
+          type: string
+        friends:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+  responses:
+    NotFound:
+      description: Entity not found.
+    IllegalInput:
+      description: Illegal input for operation.
+    GeneralError:
+      description: General Error.
+paths:
+  /users:
+    get:
+      summary: Get all users
+      operationId: getUsers
+      tags:
+        - User
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: Create a new user
+      operationId: createUser
+      tags:
+        - User
+      requestBody:
+        description: New user data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /users/{userId}:
+    get:
+      summary: Get a user by ID
+      operationId: getUserById
+      tags:
+        - User
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: ID of the user
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      summary: Update a user by ID
+      operationId: updateUser
+      tags:
+        - User
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: ID of the user
+          schema:
+            type: string
+      requestBody:
+        description: Updated user data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUser'
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Delete a user by ID
+      operationId: deleteUser
+      tags:
+        - User
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: ID of the user
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /votes:
+    get:
+      summary: Get all votes
+      operationId: getVotes
+      tags:
+        - Vote
+      responses:
+        '200':
+          description: List of votes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vote'
+    post:
+      summary: Create a new vote
+      operationId: createVote
+      tags:
+        - Vote
+      requestBody:
+        description: New vote data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewVote'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vote'
+  /votes/{voteId}:
+    get:
+      summary: Get a vote by ID
+      operationId: getVoteById
+      tags:
+        - Vote
+      parameters:
+        - name: voteId
+          in: path
+          required: true
+          description: ID of the vote
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Vote found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vote'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      summary: Update a vote by ID
+      operationId: updateVote
+      tags:
+        - Vote
+      parameters:
+        - name: voteId
+          in: path
+          required: true
+          description: ID of the vote
+          schema:
+            type: string
+      requestBody:
+        description: Updated vote data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewVote'
+      responses:
+        '200':
+          description: Vote updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vote'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Delete a vote by ID
+      operationId: deleteVote
+      tags:
+        - Vote
+      parameters:
+        - name: voteId
+          in: path
+          required: true
+          description: ID of the vote
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /categories:
+    get:
+      summary: Get all categories
+      operationId: getCategories
+      tags:
+        - Category
+      responses:
+        '200':
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+    post:
+      summary: Create a new category
+      operationId: createCategory
+      tags:
+        - Category
+      requestBody:
+        description: New category data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewCategory'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+  /categories/{categoryId}:
+    get:
+      summary: Get a category by ID
+      operationId: getCategoryById
+     
