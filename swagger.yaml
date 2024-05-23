@@ -1,9 +1,4 @@
-Con base en los esquemas Mongoose y el router proporcionados, actualizaremos el archivo `swagger.yaml` para incluir los modelos adicionales (Vote, Category y Group) y las rutas correspondientes.
-
-Aquí tienes una versión actualizada del archivo `swagger.yaml` que incluye estos modelos y rutas:
-
-```yaml
-openapi: 3.0.0
+swagger: '2.0'
 info:
   title: API Documentation
   description: API for managing users, votes, categories, and groups
