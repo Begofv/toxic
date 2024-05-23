@@ -4,7 +4,6 @@ const voteSchema = new mongoose.Schema({
     from :{
         type: mongoose.Schema.ObjectId,
         ref: 'users',
-        unique: true
     },
     category: {
         type: mongoose.Schema.ObjectId,
@@ -13,7 +12,6 @@ const voteSchema = new mongoose.Schema({
     to: {
         type: mongoose.Schema.ObjectId,
         ref: 'users',
-        unique: true
     },
     group: {
         type: mongoose.Schema.ObjectId,

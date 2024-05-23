@@ -60,7 +60,6 @@ const getByGroup = async(property,value) =>{
         return null;
     }
 }
-
 export const functions = {
     getAll,
     getById,
