@@ -11,7 +11,7 @@ import { isAuthenticated,isAdmin } from "../middlewares/authMiddleware.js";
 const router = Router();
 
 router.get("/",(req,res)=>{
-    res.send({message:"Hello api!"});
+    res.json({message:"Hello api!"});
 })
 
 router.use("/users",userRouter);
