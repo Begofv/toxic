@@ -49,9 +49,21 @@ const createCategory = async(categoryData)=>{
     return result;
 }
 
+const getUsers = async()=>{
+    const result = await fetchData("/users","get");
+    return result;
+}
+
+const createUser = async(userData)=>{
+    const result = await fetchData("/users","post",userData);
+    return result;
+}
+
 export {
     register,
     login,
     getCategories,
-    createCategory
+    createCategory,
+    getUsers,
+    createUser
 }
