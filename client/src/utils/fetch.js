@@ -40,6 +40,8 @@ const login = async(userData)=>{
     const result = await fetchData("/login","post",userData);
     return result;
 }
+
+
 const getCategories = async()=>{
     const result = await fetchData("/categories","get");
     return result;
@@ -48,6 +50,8 @@ const createCategory = async(categoryData)=>{
     const result = await fetchData("/categories","post",categoryData);
     return result;
 }
+
+
 
 const getUsers = async()=>{
     const result = await fetchData("/users","get");
@@ -59,11 +63,23 @@ const createUser = async(userData)=>{
     return result;
 }
 
+
+const getGroups = async()=>{
+    const result = await fetchData("/groups","get");
+    return result;
+}
+
+const createGroup = async(userData)=>{
+    const result = await fetchData("/groups","post",groupData);
+    return result;
+}
 export {
     register,
     login,
     getCategories,
     createCategory,
     getUsers,
-    createUser
+    createUser,
+    getGroups,
+    createGroup
 }

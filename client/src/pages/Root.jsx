@@ -15,13 +15,16 @@ const Root = () => {
             <nav>
                 <ul>
                     <li>
-                        <Link to="/">HOme</Link>
+                        <Link to="/">Home</Link>
                     </li>
                     <li>
                         <Link to="/categories">Categorias</Link>
                     </li>
                     <li>
                         <Link to="/users">Usuarios</Link>
+                    </li>
+                    <li>
+                        <Link to="/groups">Grupos</Link>
                     </li>
                     <li>
                         <Link to="/register">Login / Registrarse</Link>

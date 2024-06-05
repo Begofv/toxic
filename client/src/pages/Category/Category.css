@@ -20,6 +20,7 @@
   text-align: center;
   flex-wrap: wrap;
 }
+
 @keyframes shake {
   0% { transform: translateX(0); }
   25% { transform: translateX(5px); }

@@ -34,13 +34,13 @@ const UsersList = ({}) =>{
         <section className="users-list">
             {usersHtml}
         </section>
-{/* 
+
         {selectUser && 
             <Modal onClose={()=>setSelectUser(null)}>
                 <h2>{selectUser.name}</h2>
                 <p>{selectUser.description}</p>
             </Modal>
-        } */}
+        }
         </>
 )}
 
