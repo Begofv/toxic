@@ -1,9 +1,11 @@
 import { useState } from "react";
+import {useLoaderData} from "react-router-dom";
 import Modal from "../../components/modal/Modal";
 import CreateCategory from "../../components/category/CreateCategory";
 import './Category.css'
 
-const CategoriesList = ({categories}) =>{
+const CategoriesList = ({}) =>{
+    const categories = useLoaderData();
     const [creatingCategory, setCreatingCategory] = useState(false);
     const [selectCategory, setSelectCategory] = useState(null);
 

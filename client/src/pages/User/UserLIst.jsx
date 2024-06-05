@@ -1,9 +1,11 @@
 import { useState } from "react";
+import {useLoaderData} from "react-router-dom";
 import Modal from "../../components/modal/Modal";
 import CreateUser from "../../components/user/CreateUser";
 import './User.css'
 
-const UsersList = ({users}) =>{
+const UsersList = ({}) =>{
+    const users = useLoaderData();
     const [creatingUser, setCreatingUser] = useState(false);
     const [selectUser, setSelectUser] = useState(null);
 
