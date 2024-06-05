@@ -58,7 +58,14 @@ const login = async(data) =>{
         }
         console.log("login user",user)
         const token = jwt.sign({_id:user._id,username:user.username,role:user.role},process.env.JWT_SECRET,{expiresIn: 60 * 60* 24})
-        return {token};       
+        const userData = {
+            _id:user._id,
+            username:user.username,
+            email:user.email,
+            role:user.role
+        }
+        return {token,user:userData};     
+          
     } catch (error) {
         console.error(error);
         return {error:"Ha habido un error",status:500};
@@ -114,36 +121,36 @@ const remove = async(id) =>{
         return null;
     }
 }
-const addProject = async(userId,projectId)=>{
-    try {
-        console.log("add project",userId)
-        const user = await getById(userId);
-        console.log("userss",user);
-        if(!user.projects.includes(projectId)){
-            user.projects.push(projectId);
-            await user.save();
-            return user;
-        }
-        return user;
-    } catch (error) {
-        console.error(error);
-        return {error:"no se ha podido añadir el proyecto"};
-    }
-}
-const removeProject = async(userId,projectId)=>{
-    try {
-        const user = await getById(userId);
-        if(user.projects.includes(projectId)){
-            user.projects = user.projects.filter(p => !p.equals(projectId));
-            await user.save();
-            return user;
-        }
-        return user;
-    } catch (error) {
-        console.error(error);
-        return {error:"no se ha podido añadir el proyecto"};
-    }
-}
+// const addProject = async(userId,projectId)=>{
+//     try {
+//         console.log("add project",userId)
+//         const user = await getById(userId);
+//         console.log("userss",user);
+//         if(!user.projects.includes(projectId)){
+//             user.projects.push(projectId);
+//             await user.save();
+//             return user;
+//         }
+//         return user;
+//     } catch (error) {
+//         console.error(error);
+//         return {error:"no se ha podido añadir el proyecto"};
+//     }
+// }
+// const removeProject = async(userId,projectId)=>{
+//     try {
+//         const user = await getById(userId);
+//         if(user.projects.includes(projectId)){
+//             user.projects = user.projects.filter(p => !p.equals(projectId));
+//             await user.save();
+//             return user;
+//         }
+//         return user;
+//     } catch (error) {
+//         console.error(error);
+//         return {error:"no se ha podido añadir el proyecto"};
+//     }
+// }
 
 export const functions = {
     getAll,
@@ -154,8 +161,8 @@ export const functions = {
     register,
     update,
     remove,
-    addProject,
-    removeProject
+    // addProject,
+    // removeProject
 }
 
 export default functions;

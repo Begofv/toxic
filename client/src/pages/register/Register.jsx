@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { register, login } from "../../utils/fetch"
 import { saveToken } from "../../utils/local";
+import {useNavigate} from "react-router-dom";
 import "./Register.css";
 
 const initialUserData = {
@@ -13,6 +14,7 @@ const Register = ({ onLogin }) => {
     const [isRegister, setIsRegister] = useState(false);
     const [error, setError] = useState("");
     const [userData, setUserData] = useState(initialUserData);
+    const navigate = useNavigate();
 
     const handleUserData =(e) =>{
         e.preventDefault();
@@ -44,7 +46,7 @@ const Register = ({ onLogin }) => {
             if (!result.error) {
                 setError("login correct");
                 saveToken(result.token);
-                onLogin(result.token);
+                navigate("/");
             }
             else {
                 setError(result.error);
