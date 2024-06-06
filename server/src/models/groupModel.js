@@ -6,7 +6,7 @@ const groupSchema = new mongoose.Schema({
         required:true
     },
     friends: [{
-        type: [mongoose.Schema.ObjectId],
+        type: mongoose.Schema.ObjectId,
         ref: "user"
     }]
 });
