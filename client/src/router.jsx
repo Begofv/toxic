@@ -20,11 +20,17 @@ async function fetchCategories(){
 
 async function fetchUsers(){
   const result = await getUsers();
+  if(result.error){
+    return redirect ("/register")
+  }
   return result.data;
 }
 
 async function fetchGroups(){
   const result = await getGroups();
+  if(result.error){
+    return redirect ("/register")
+  }
   return result.data;
 }
 
