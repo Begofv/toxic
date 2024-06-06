@@ -1,17 +1,20 @@
-import friendsModel from "../../models/groupModel.js";
+import groupModel from "../../models/groupModel.js";
 
 const getAll = async()=> {
     try {
-        const friends = await friendsModel.find();
+        const friends = await groupModel.find();
         return friends;
     } catch (error) {
         console.error(error);
         return [];
     }
 }
-const getById = async(id) =>{
+const getById = async(id, populate = true)=>{
     try {
-        const friend = await friendsModel.findById(id);
+        const friend = await groupModel.findById(id);
+        if (populate) {
+            await friend.populate("friends");
+        }
         return friend;
     } catch (error) {
         console.error(error);
@@ -21,7 +24,7 @@ const getById = async(id) =>{
 
 const create = async(data) =>{
     try {
-        const friend = await friendsModel.create(data);
+        const friend = await groupModel.create(data);
         return friend;
     } catch (error) {
         console.error(error); 
@@ -31,7 +34,7 @@ const create = async(data) =>{
 
 const remove = async(id) =>{
     try {
-        const friend = await friendsModel.findByIdAndDelete(id);
+        const friend = await groupModel.findByIdAndDelete(id);
         return friend;
     } catch (error) {
         console.error(error);
@@ -41,7 +44,7 @@ const remove = async(id) =>{
 
 const addFriend = async(groupId,userId) =>{
     try {
-        const group = await getById(groupId);
+        const group = await getById(groupId,false);
         if(!group.friends.includes(userId)){
             group.friends.push(userId);
             await group.save();

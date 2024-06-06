@@ -52,7 +52,6 @@ const createCategory = async(categoryData)=>{
 }
 
 
-
 const getUsers = async()=>{
     const result = await fetchData("/users","get");
     return result;
@@ -68,8 +67,12 @@ const getGroups = async()=>{
     const result = await fetchData("/groups","get");
     return result;
 }
+const getGroup = async(id)=>{
+    const result = await fetchData("/groups/"+id,"get");
+    return result;
+}
 
-const createGroup = async(userData)=>{
+const createGroup = async(groupData)=>{
     const result = await fetchData("/groups","post",groupData);
     return result;
 }
@@ -81,5 +84,6 @@ export {
     getUsers,
     createUser,
     getGroups,
+    getGroup,
     createGroup
 }

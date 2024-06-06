@@ -1,10 +1,19 @@
+ import { useLoaderData } from "react-router-dom";
+
+
 import './Group.css'
-const Group = ({group}) => {
+const Group = () => {
+    const group = useLoaderData();
+    console.log(group);
     
     return(
         <section className="group-card">
             <h2>{group.name}</h2>
-            <p>{group.friends}</p>
+            <ul>
+                {group.friends.map(user => (
+                    <li key={user._id}>{user.username}</li>
+                ))}
+            </ul>
             
         </section>
     )
