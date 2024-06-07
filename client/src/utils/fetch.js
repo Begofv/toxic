@@ -76,6 +76,28 @@ const createGroup = async(groupData)=>{
     const result = await fetchData("/groups","post",groupData);
     return result;
 }
+
+const getVotes = async()=>{
+    const result = await fetchData("/votes","get");
+    return result;
+}
+const getVote = async(id)=>{
+    const result = await fetchData("/votes/"+id,"get");
+    return result;
+}
+
+const createVote = async(voteData)=>{
+    const result = await fetchData("/votes","post",voteData);
+    return result;
+}
+
+
+const getVotesByGroup = async(groupId)=>{
+    const result = await fetchData("/votes/bygroup/"+groupId,"get");
+    return result;
+}
+
+
 export {
     register,
     login,
@@ -85,5 +107,9 @@ export {
     createUser,
     getGroups,
     getGroup,
-    createGroup
+    createGroup,
+    getVotes,
+    getVote,
+    createVote,
+    getVotesByGroup
 }

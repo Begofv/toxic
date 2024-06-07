@@ -3,15 +3,15 @@ import mongoose from "mongoose";
 const voteSchema = new mongoose.Schema({
     from :{
         type: mongoose.Schema.ObjectId,
-        ref: 'users',
+        ref: 'user',
     },
     category: {
         type: mongoose.Schema.ObjectId,
-        ref: 'category',
+        ref: 'categories',
     },
     to: {
         type: mongoose.Schema.ObjectId,
-        ref: 'users',
+        ref: 'user',
     },
     group: {
         type: mongoose.Schema.ObjectId,

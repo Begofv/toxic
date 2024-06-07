@@ -54,9 +54,29 @@ const getByGroup = async(property,value) =>{
     try {
         console.log("property",property)
         console.log("value",value)
-        const vote = await voteModel.find({[property]:value})
-        return vote;
+        const votes = await voteModel.find({[property]:value})
+        const populatevotes = await Promise.all(votes.map(async (vote) => {
+            await vote.populate({
+                path:"to",
+                select: { username:1, email:1, role:1 }
+            });
+            await vote.populate({
+                path:"from",
+                select: { username:1, email:1, role:1 }
+            });
+            await vote.populate({
+                path:"category"
+
+            });
+            await vote.populate({
+                path:"group"
+
+            });
+            return vote;
+        }))
+        return populatevotes;
     } catch (error) {
+        console.error(error)
         return null;
     }
 }

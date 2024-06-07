@@ -17,7 +17,6 @@ const CategoriesList = ({}) =>{
         return(
             <article className="categories-list-element" key={category._id0} onClick={()=>hanleCategoryClick(category)}>
                 <h3>{category.name}</h3>
-                {/* <p>{category.description}</p> */}
             </article>
         )
     })
