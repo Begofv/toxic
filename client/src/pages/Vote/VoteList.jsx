@@ -1,5 +1,7 @@
 import { useState } from "react";
 import {useLoaderData, Link} from "react-router-dom";
+import Modal from "../../components/modal/Modal";
+import CreateVote from "../../components/vote/CreateVote";
 import './Vote.css'
 
 const VoteList = ({}) =>{
@@ -17,10 +19,18 @@ const VoteList = ({}) =>{
         )
     })
     return (
-        <>     
-        <section className="votes-list">
-            {votesHtml}
-        </section>
+        <> 
+          {creatingGroup ?
+            <Modal onClose={()=>setCreatingVote(false)}>
+               <CreateVote onCreate={()=>setCreatingVote(false)}/>
+           </Modal>
+           :
+           <button onClick={()=>setCreatingVote(true)}>Votar!</button>
+            }
+               
+            <section className="votes-list">
+                {votesHtml}
+             </section>
 
         </>
 )}

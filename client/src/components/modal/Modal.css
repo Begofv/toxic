@@ -15,5 +15,7 @@
     min-height:50%;
     border-radius:15px;
     padding:1rem;
+    overflow-y: auto;
+    max-height:90%;
 
 }
