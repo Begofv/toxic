@@ -5,6 +5,7 @@ import voteRouter from "./voteRouter.js";
 import categoryRouter from "./categoryRouter.js";
 import groupRouter from "./groupRouter.js"; 
 import authRouter from "./authRouter.js";
+import invitationRouter from "./invitationRouter.js";
 
 import { isAuthenticated,isAdmin } from "../middlewares/authMiddleware.js";
 
@@ -18,6 +19,7 @@ router.use("/users",userRouter);
 router.use("/votes",isAuthenticated,voteRouter);
 router.use("/categories",categoryRouter);
 router.use("/groups",isAuthenticated,groupRouter);
+router.use("/invitations",isAuthenticated,isAdmin,invitationRouter);
 router.use("/",authRouter);
 
 export default router;
