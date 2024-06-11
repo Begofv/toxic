@@ -13,7 +13,7 @@ const Group = () => {
 
     return (
         <section className="group-card">
-            <h2>{group.name}</h2>
+            {/* <h2>{group.name}</h2>
             <ul>
                 {group.friends.map(user => (
                     <li key={user._id}>{user.username}</li>
@@ -27,9 +27,9 @@ const Group = () => {
                         <li key={category._id}>{category.name}</li>
                     ))}
                 </ul>
-            </div>
+            </div> */}
             <div>
-                <h3>Votos</h3>
+                <h3>quien ganara?</h3>
                 {creatingVote ?
                     <Modal onClose={() => setCreatingVote(false)}>
                         <CreateVote group={group} onCreate={() => setCreatingVote(false)} />
@@ -39,7 +39,7 @@ const Group = () => {
                 }
                 <ul>
                     {votes.map(vote => (
-                        <li key={vote._id}>{vote.value}</li>
+                        <li key={vote._id}>{vote.to.username}|{vote.category.name}</li>
                     ))}
                 </ul>
             </div>
